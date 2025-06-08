@@ -1,0 +1,928 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Roboto+Mono&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fix overflow issues */
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}
+
+/* Hide scrollbars on all scrollable elements */
+.container, .top-labels-grid, .left-labels-container, .modal-content, .modal pre, #css-output {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.container::-webkit-scrollbar, 
+.top-labels-grid::-webkit-scrollbar, 
+.left-labels-container::-webkit-scrollbar, 
+.modal-content::-webkit-scrollbar, 
+.modal pre::-webkit-scrollbar,
+#css-output::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}
+
+body {
+    background-color: #1F2332;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    width: 100%;
+    max-width: auto;
+    margin: 0;
+    padding: 0 20px;
+    overflow-y: auto;
+    flex: 1;
+    position: relative;
+}
+
+/* Convert mt-8 class */
+.mt-8 {
+    margin-top: 2rem;
+}
+
+/* GitHub logo positioning */
+.git-logo {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+/* Header flex container with centering */
+.flex.justify-center.items-center.font-bold.mt-\[10px\].mb-\[20px\].text-center.relative,
+.header-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    text-align: center;
+    position: relative;
+}
+
+/* SVG logo positioning */
+.fill-\[\#08ffbd\].absolute.top-\[0\.5rem\].left-\[4rem\],
+.header-svg {
+    fill: #08ffbd;
+    position: relative;
+    top: 0;
+    left: 0;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Main heading */
+.text-\[40px\].sm\:max-w-\[400px\].text-shadow-\[0_0_0\.9rem_\#000\].font-bold.text-center,
+h1 {
+    font-size: 40px;
+    text-shadow: 0 0 0.9rem #000;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Main content area - ensure it can scroll */
+.grid-container.mx-auto.mt-10.relative.px-4,
+.grid-container {
+    max-width: auto;
+    margin: 0 auto;
+    margin-top: 2.5rem;
+    position: relative;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 4rem; /* Add padding at bottom to ensure scrollability */
+}
+
+/* Main flex row container */
+.flex.flex-row.justify-center.items-start,
+.main-flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-left: 50px;
+    gap: 50px;
+    margin-bottom: 30px;
+}
+
+/* Top labels flex container */
+.flex.justify-between.mb-1,
+.top-labels-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+}
+
+/* Empty space for alignment */
+.w-\[50px\],
+.empty-space {
+    width: 50px;
+}
+
+/* Grid columns container for top labels */
+.grid.grid-cols-5.gap-2,
+.top-labels-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns, 5), minmax(0, 1fr));
+    gap: 0.5rem;
+    width: 800px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+    margin-left: 0; /* Ensure no left margin */
+}
+
+/* Grid and side labels container */
+.flex.justify-center.items-start,
+.grid-with-labels {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+/* Left column labels container */
+.left-labels-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 0.5rem;
+    height: 500px; /* Match the grid height */
+    width: 100px;
+    overflow-y: auto;
+    padding-right: 5px;
+    box-sizing: border-box;
+}
+
+/* Row label items */
+.left-labels-container > div {
+    background-color: #2a2d3e;
+    border: 1px solid #3e4156;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% / var(--grid-rows, 5) - 8px);
+    min-height: 30px;
+    padding: 0;
+    margin-bottom: 8px;
+}
+
+/* Grid display styling */
+.grid-display {
+    background-color: #272a3a;
+    position: relative;
+    width: 800px;
+    height: 500px;
+    border: 2px solid #08ffbd;
+    overflow: hidden;
+    margin-top: 0; /* Ensure no top margin */
+    box-sizing: border-box;
+}
+
+/* Main grid container */
+.grid.grid-cols-5.grid-rows-5.w-full.h-full,
+#grid-container {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns, 5), minmax(0, 1fr));
+    grid-template-rows: repeat(var(--grid-rows, 5), minmax(0, 1fr));
+    width: 100%;
+    height: 100%;
+}
+
+/* Grid areas container */
+.absolute.top-0.left-0.w-full.h-full.pointer-events-none,
+#grid-areas-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+    overflow: hidden;
+}
+
+/* Make sure area divs can receive pointer events */
+#grid-areas-container > div {
+    position: absolute;
+    cursor: move;
+    pointer-events: auto;
+}
+
+/* Control panel */
+.control-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 350px;
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+}
+
+.control-panel input[type="number"] {
+    background-color: #1f2332;
+    border: 1px solid #383b4d;
+    color: white;
+    padding: 12px 10px;
+    width: 100%;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+.control-panel input[type="number"]:focus {
+    outline: none;
+    border-color: #08ffbd;
+}
+
+/* Remove spinner buttons from number inputs */
+.control-panel input[type="number"]::-webkit-inner-spin-button,
+.control-panel input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.control-panel input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.control-panel label {
+    margin-bottom: 8px;
+    display: block;
+    font-weight: normal;
+    color: white;
+    font-size: 16px;
+}
+
+.control-panel button {
+    background-color: #08ffbd;
+    color: #1F2332;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    transition: opacity 0.2s;
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+/* Button with w-full class */
+.w-full,
+.control-panel button.w-full {
+    width: 100%;
+}
+
+.control-panel button:hover {
+    opacity: 0.9;
+}
+
+.control-panel button.reset {
+    background-color: transparent;
+    border: 1px solid #383b4d;
+    color: white;
+    padding: 12px;
+    margin-top: 5px;
+    font-size: 16px;
+    font-weight: normal;
+    border-radius: 30px;
+}
+
+.control-panel button.reset:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.info-text {
+    color: #08ffbd;
+    font-style: italic;
+    margin-top: 30px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Rubik', sans-serif;
+}
+
+.info-text:hover {
+    text-decoration: underline;
+}
+
+/* Area controls container */
+.mt-3.flex.justify-between.items-center,
+.area-controls {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Clear areas button */
+.bg-red-500.text-white.px-3.py-1.rounded.hover\:opacity-90,
+#clear-areas-btn {
+    background-color: #ef4444;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    padding: 0.75rem 1.25rem;
+    border-radius: 1.25rem;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+#clear-areas-btn:hover {
+    opacity: 0.9;
+}
+
+/* CSS output container */
+#css-output-container {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #272a3a;
+    border: 1px solid #3e4156;
+    border-radius: 4px;
+}
+
+#css-output-container h3 {
+    margin-bottom: 10px;
+    color: #08ffbd;
+}
+
+#css-output {
+    background-color: #1F2332;
+    padding: 12px;
+    border-radius: 4px;
+    color: #08ffbd;
+    overflow: auto;
+    font-size: 14px;
+    font-family: monospace;
+    white-space: pre;
+    max-height: 300px;
+}
+
+/* Copy CSS button */
+#copy-css {
+    margin-top: 10px;
+    background-color: #08ffbd;
+    color: #1F2332;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#copy-css:hover {
+    opacity: 0.9;
+}
+
+/* Input styling */
+input.col-fr-input,
+input.row-fr-input {
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 16px;
+    width: 100%;
+    padding: 8px 4px;
+    background-color: #2a2d3e;
+    text-align: center;
+    border-radius: 4px;
+}
+
+input.row-fr-input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 0.85rem;
+    padding: 0;
+}
+
+input.col-fr-input:focus,
+input.row-fr-input:focus {
+    border-bottom: 1px solid #08ffbd;
+}
+
+/* Column and row labels styling */
+.col-label, .row-label {
+    background-color: #2a2d3e;
+    border: 1px solid #3e4156;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.row-label {
+    height: calc(100% / var(--grid-rows, 5) - 8px);
+    min-height: 30px;
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+/* Grid area styles */
+#grid-areas-container > div {
+    cursor: move;
+    transition: background-color 0.2s;
+}
+
+#grid-areas-container > div:hover {
+    opacity: 0.9;
+}
+
+#grid-areas-container button {
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    z-index: 20;
+}
+
+#grid-areas-container button:hover {
+    opacity: 1;
+}
+
+/* Grid cells need pointer-events: auto to capture mouse events */
+#grid-container > div {
+    position: relative;
+    cursor: pointer;
+    pointer-events: auto;
+    border: 1px dashed #8A8A91;
+    background-color: #161624;
+    background-image: linear-gradient(135deg, transparent 0%, transparent 48%, #3e4156 49%, #3e4156 51%, transparent 52%, transparent 100%);
+    background-size: 10px 10px;
+}
+
+/* Responsive styles */
+@media (min-width: 640px) {
+    .header-svg {
+        position: static;
+        margin-right: 0.5rem;
+    }
+    
+    h1 {
+        max-width: 400px;
+        font-size: 40px;
+    }
+}
+
+@media (min-width: 768px) {
+    #css-output {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+    
+    .header-svg {
+        left: 4rem;
+    }
+}
+
+@media (max-width: 1200px) {
+    .grid-display {
+        width: 550px;
+        height: 420px;
+    }
+    
+    .top-labels-grid {
+        width: 550px;
+    }
+    
+    .left-labels-container {
+        height: 420px;
+    }
+}
+
+@media (max-width: 992px) {
+    .grid-display {
+        width: 500px;
+        height: 380px;
+    }
+    
+    .top-labels-grid {
+        width: 500px;
+    }
+    
+    .left-labels-container {
+        height: 380px;
+    }
+
+    .main-flex-container {
+        gap: 20px;
+        margin-left: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Scrolling fixes */
+    html, body {
+        height: auto;
+        min-height: 100%;
+    }
+    
+    .container {
+        min-height: 100vh;
+        height: auto;
+    }
+    
+    body, html {
+        height: auto;
+        overflow-y: auto;
+    }
+
+    .container {
+        height: auto;
+        overflow: visible;
+    }
+    
+    .main-flex-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        margin-left: 0;
+    }
+    
+    .grid-container {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+    
+    .grid-display {
+        width: 100%;
+        max-width: 400px;
+        height: 350px;
+    }
+    
+    .top-labels-grid {
+        width: 100%;
+        max-width: 400px;
+    }
+    
+    .left-labels-container {
+        height: 350px;
+        width: 60px;
+    }
+    
+    .control-panel {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 0 10px;
+    }
+    
+    input.col-fr-input,
+    input.row-fr-input {
+        font-size: 14px;
+        padding: 8px 4px;
+    }
+    
+    #css-output {
+        font-size: 12px;
+    }
+
+    .control-panel input[type="number"] {
+        padding: 15px 10px;
+        font-size: 16px;
+    }
+
+    .control-panel button {
+        padding: 15px 20px;
+        font-size: 16px;
+    }
+
+    .control-panel label {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-display {
+        height: 300px;
+    }
+    
+    .top-labels-grid {
+        width: 100%;
+    }
+    
+    .left-labels-container {
+        height: 300px;
+        width: 50px;
+    }
+    
+    .control-panel {
+        width: 100%;
+    }
+    
+    input.col-fr-input,
+    input.row-fr-input {
+        font-size: 12px;
+        padding: 6px 2px;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .modal h3 {
+        font-size: 24px;
+    }
+
+    .modal pre {
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    .modal button {
+        padding: 12px 16px;
+        min-width: 120px;
+        font-size: 14px;
+    }
+
+    .header-flex {
+        flex-direction: column;
+        margin-top: 20px;
+    }
+    
+    h1 {
+        font-size: 30px;
+        line-height: 1.2;
+        margin-top: 10px;
+        text-align: center;
+        justify-content: center;
+    }
+    
+    .header-svg {
+        display: block;
+        margin: 0 auto 10px auto;
+    }
+    
+    .grid-container {
+        margin-bottom: 30px;
+    }
+    
+    .control-panel {
+        margin-bottom: 50px;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    h1 {
+        font-size: 26px;
+    }
+    
+    .grid-display, .top-labels-grid {
+        width: 95%;
+    }
+    
+    .control-panel input[type="number"],
+    .control-panel button {
+        font-size: 14px;
+    }
+}
+
+/* Make inputs and buttons more touch-friendly */
+@media (hover: none) {
+    .control-panel input[type="number"],
+    .control-panel button,
+    input.col-fr-input,
+    input.row-fr-input {
+        min-height: 44px;
+    }
+
+    .modal button,
+    .copy-to-clipboard,
+    #modal-show-html {
+        min-height: 44px;
+    }
+}
+
+/* Modal Popup Styles */
+.modal {
+    display: none;
+  
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #192D38;
+    border: 2px solid #08ffbd;
+    font-family: 'Rubik', sans-serif;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 800px;
+    max-height: 80%;
+    padding: 20px;
+    position: relative;
+    overflow: auto;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    color: #08ffbd;
+    cursor: pointer;
+}
+
+.modal h3 {
+    margin-bottom: 15px;
+    color: white;
+    text-align: center;
+    font-size: 28px;
+    padding-right: 30px;
+}
+
+.modal pre {
+    background-color: #151523;
+    padding: 15px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    overflow: auto;
+    font-family: 'Roboto Mono', monospace;
+    white-space: pre;
+    max-height: 400px;
+    margin-top: 12px;
+    margin-bottom: 15px;
+    position: relative;
+    color: white;
+    font-size: 14px;
+}
+
+/* Syntax highlighting for CSS code */
+.modal pre .parent,
+.modal pre .display,
+.modal pre .grid-template-columns,
+.modal pre .grid-template-rows,
+.modal pre .grid-column-gap,
+.modal pre .grid-row-gap,
+.modal pre .grid-area {
+    color: #08ffbd;
+}
+
+.modal pre .div1,
+.modal pre .div2,
+.modal pre .div3,
+.modal pre .div4,
+.modal pre .div5,
+.modal pre .div6 {
+    color: #ffeb3b;
+}
+
+.modal pre .brace {
+    color: white;
+}
+
+.modal pre .property {
+    color: #08ffbd;
+}
+
+.modal pre .value {
+    color: #ff9800;
+}
+
+.modal pre .comment {
+    color: #9e9e9e;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal button {
+    background-color: #08ffbd;
+    color: #1a2331;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    min-width: 150px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.modal button:hover {
+    opacity: 0.9;
+}
+
+/* Copy to clipboard button */
+.copy-to-clipboard {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #08ffbd;
+    color: #1a2331;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Show HTML button */
+#modal-show-html {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #1a2331;  
+    color: #08ffbd;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    border-radius: 30px;
+    border: 2px solid #fff;
+    font-family: 'Roboto', sans-serif;
+}
+
+#modal-show-html:hover {
+    background-color: #08ffbd;
+    color: #1a2331;
+    transition: all 0.6s ease;
+}
+
+.modal p {
+    color: white;
+    margin-bottom: 10px;
+    font-size: 16px;
+    text-align: left;
+    margin-left: 5px;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Import Roboto font */
+
+#generate-code-btn {
+    background-color: #1F2332;
+    color: #08ffbd;
+    border: 1px solid #08ffbd;
+    padding: 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 10px;
+    font-size: 16px;
+    text-align: center;
+}
+
+#generate-code-btn:hover {
+    background-color: #08ffbd;
+    color: #1F2332;
+    border: 1px solid #08ffbd;
+    transition: all 0.3s ease;
+}
+
+/* Column Gap and Row Gap label styling */
+label[for="column-gap"],
+label[for="row-gap"] {
+    display: flex;
+    align-items: baseline;
+}
+
+label[for="column-gap"] span,
+label[for="row-gap"] span {
+    color: #8a8a9a;
+    font-size: 16px;
+    font-weight: normal;
+    margin-left: 5px;
+} 
